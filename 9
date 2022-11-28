@@ -1,0 +1,18 @@
+С клавиатуры вводится дата в формате DD-MM-YYYY. Нужно вывести дату начала недели, к которой относится введенная дата (дата понедельника недели), в таком же формате.
+
+Формат ввода
+22-09-2022
+
+Формат вывода
+19-09-2022
+
+Примечания
+Если введен понедельник - нужно вывести его же.
+
+import datetime
+
+date_time = input()
+date_now = datetime.datetime.strptime(date_time, '%d-%m-%Y')
+den_nedelyy = date_now.weekday() 
+date_pn = (date_now - datetime.timedelta(days = den_nedelyy))
+print(date_pn.strftime('%d-%m-%Y'))
