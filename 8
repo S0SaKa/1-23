@@ -1,0 +1,51 @@
+С клавиатуры вводятся слова через запятую с пробелом. 
+Выведите на экран три наиболее часто встречаемых слова, вместе с количеством этих слов. 
+Количество должно быть отделено от слова двоеточием и пробелом. Каждая пара слово-количество должна быть выведена на отдельной строчке. 
+Для простоты гарантируется, что в строке нет слов с одинаковой встречаемостью.
+
+Формат ввода
+три, три, и, ещё, три, будет, дырка, и, будет, и, дырка, и, дырка, и, дырка
+
+Формат вывода
+и: 5 дырка: 4 три: 3
+
+Примечания
+Рекомендация: чтобы быстрее решить задачу, нужно составить словарь, в котором ключами будут встреченные слова, а значениями - 
+их количество в строке. Далее работайте с этим словарем по своему усмотрению. 
+Далее один из вариантов - отсортировать кортежи, в которых на первом месте стоит количество слов, а на втором - сами слова.
+Учтите, что различных слов в строке может быть меньше трех. В этом случае нужно вывести все.
+
+
+stroka = input()
+stroka = stroka.casefold()
+stroka = stroka.replace(',', '')
+stroka = stroka.split()
+
+
+slovar = {}
+
+for el in stroka:
+    slovar[el] = slovar.get(el, 0) + 1 
+    
+sorted_slovar = sorted(slovar.items(), key=lambda item: item[1], reverse = True)
+sorted_slovar2 = {k: v for k, v in sorted_slovar}
+
+
+spisok_keys = list(sorted_slovar2)
+spisok_znach = []
+
+for value in sorted_slovar2.values():
+    spisok_znach.append(value)
+    count = 1
+    for i in range(1, len(spisok_znach)):
+        if spisok_znach[i - 1] != spisok_znach[i]:
+            count += 1
+if count < 3:
+    for key in sorted_slovar2.keys():
+        print(key, ': ',  sorted_slovar2[key], sep = '')
+else:
+    del spisok_keys[:3]
+    for key in spisok_keys:
+        sorted_slovar2.pop(key, None)
+    for key, value in sorted_slovar2.items():
+        print(key, ': ',  value, sep = '')
