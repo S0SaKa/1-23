@@ -1,0 +1,38 @@
+Напишите функцию get_popular_name_from_file(filename), которая считывает файл, в котором в каждой строке записаны имя и фамилия через пробел. 
+filename - это имя файла, в котором записаны эти имена. Вам нужно вернуть строку - самое популярное имя в файле. Если таких имен несколько, 
+они должны быть перечислены через запятую внутри строки в алфавитном порядке.
+
+Формат ввода
+Джо Байден
+
+Владимир Добрый
+
+Владимир Злой
+
+Джо Буш
+
+Илон Маск
+
+Формат вывода
+Владимир, Джо
+
+def get_popular_name_from_file(filename):
+    f = open(filename, 'r', encoding = 'utf-8')
+    imena = []
+    imena_max = []
+    max_col_vo = -1 
+    col_vo_imya = {}
+    stroka = ''
+    for line in f:
+        imya_familiya = line.split(' ')
+        imena.append(imya_familiya[0])
+    for elem in imena:
+        col_vo_imya[elem] = col_vo_imya.get(elem, 0) + 1 
+    col_vo_imya = dict(sorted(col_vo_imya.items()))
+    for key, value in col_vo_imya.items():
+        if max_col_vo < value:
+            max_col_vo = int(value)
+    for key, value in col_vo_imya.items():
+        if value == max_col_vo:
+            imena_max.append(key)
+    return (", ".join(imena_max))  
